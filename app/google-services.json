@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "995273372364",
+    "firebase_url": "https://random-chatting-ec5fd.firebaseio.com",
+    "project_id": "random-chatting-ec5fd",
+    "storage_bucket": "random-chatting-ec5fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995273372364:android:203437e48f4d29a7",
+        "android_client_info": {
+          "package_name": "com.maeun.random_group_chatting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995273372364-dj30ffmtl0pdc07qbpccebjaeid8bfls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Dot_7gopPuaR7Rgi-vF7ZQA8MOy5mZ8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
