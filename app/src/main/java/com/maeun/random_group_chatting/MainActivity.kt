@@ -1,13 +1,18 @@
 package com.maeun.random_group_chatting
 
+import android.content.ComponentCallbacks2
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    var isBackround : Boolean = true
 
     lateinit var chat : ArrayList<Message>
     lateinit var adapter : Adapter
@@ -35,6 +40,17 @@ class MainActivity : AppCompatActivity() {
 //            }
 //            adapter.notifyDataSetChanged()
 //        }
+
+        databasereference.child("presence").addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                main_now_tv.setText(snapshot!!.getValue().toString())
+            }
+
+        })
 
         databasereference.child("chat").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError?) {
@@ -106,5 +122,47 @@ class MainActivity : AppCompatActivity() {
         chat_room.layoutManager = LinearLayoutManager(this)
         chat_room.adapter = adapter
 
+
+
     }
+
+    override fun onWindowFocusChanged(hasFocus : Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        val databasereference = FirebaseDatabase.getInstance().getReference()
+        var presence : Int = 0
+        var msg : String = ""
+
+        if (hasFocus == true) {
+
+            databasereference.child("presence").addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onCancelled(p0: DatabaseError?) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot?) {
+                    msg = snapshot!!.getValue().toString()
+                    presence = msg.toInt()
+                    presence++
+                    databasereference.child("presence").setValue(presence)
+                }
+            })
+
+        } else {
+            databasereference.child("presence").addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onCancelled(p0: DatabaseError?) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot?) {
+                    msg = snapshot!!.getValue().toString()
+                    presence = msg.toInt()
+                    presence--
+                    databasereference.child("presence").setValue(presence)
+
+                }
+            })
+        }
+    }
+
 }
